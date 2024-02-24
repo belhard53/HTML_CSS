@@ -1,5 +1,3 @@
-# HTML_CSS
-
 Вводная информация HTML
 HTML - Hypertext Markup Language
 Язык разметки гипертекста

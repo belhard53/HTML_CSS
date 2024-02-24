@@ -1,0 +1,23 @@
+
+body {
+    background-color: rgb(245, 229, 255);
+}
+
+ul {
+    background-color: rgb(215, 193, 241);
+    border: 1px solid;
+}
+
+li{
+    text-align: center;
+    border: 1px dotted grey;
+}
+
+li:nth-child(2n){    
+    background-color: rgb(203, 186, 223);    
+}
+
+li:hover{
+    background-color: rgb(151, 128, 173);
+    
+}

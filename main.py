@@ -18,13 +18,11 @@ app.config['SECRET_KEY'] = 'some_secret_key_some_secret_key'
 app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'uploads')
 users = ['user1','user2','user3','user4', 'user5','user6','user7','user8']
 
+
+# базовая страница которая включает в себя разные шаблоны
 @app.route('/')
 def index():
-    res = ''
-    res += '<h4> ПОЛЬЗОВАТЕЛИ </h4>'
-    for i, user in enumerate(users):
-        res += f"<p> {i}. Пользователь: {user} </p>"        
-    return res
+    return render_template('base.html', data='', err='')
 
 
 @app.route('/uploads/<name>')
@@ -32,15 +30,17 @@ def sendf(name):
     return send_from_directory(app.config['UPLOAD_FOLDER'], name)
 
 
-@app.route('/users/')
-def vew_users():   
-    return render_template('1.html', users=users, head='Пользователи' , color='red')
+# этот путь загрузит базовую страницу но с формой2 внутри вместо формы1
+@app.route('/form2/', methods = ['GET', 'POST'])
+def get_data2():
+    if request.method == 'GET':
+        return render_template('form2.html', data='', err='')
 
-
+# только форма 1
 @app.route('/form1/', methods = ['GET', 'POST'])
 def get_data():
     if request.method == 'GET':
-        return render_template('3.html', data='', err='')
+        return render_template('form1.html', data='', err='')
     
     #POST    
     fields = {
@@ -68,7 +68,7 @@ def get_data():
     
     # иначе отправляем обратно на форму и пишем об ошибках
     data = {f:fields[f]['data'] for f in fields if fields[f]['data']}    
-    return render_template('3.html', err=err, data = data)
+    return render_template('base.html', err=err, data = data)
     
     
 def check_fields(fields, request):
